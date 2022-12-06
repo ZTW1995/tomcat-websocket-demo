@@ -26,7 +26,7 @@ import java.util.Set;
  */
 public class App {
 
-    private static final String baseDir = "D:\\logs\\tmp-tomcat";
+    private static final String baseDir = "D:\\tmp-tomcat";
 
     private static final String contextPath = "/web";
 
