@@ -24,7 +24,12 @@
             <artifactId>tomcat-embed-core</artifactId>
             <version>9.0.37</version>
         </dependency>
-
+        <!-- 内置Web容器 Tomcat模块的el表达式依赖 -->
+        <dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-el</artifactId>
+            <version>9.0.37</version>
+        </dependency>
         <!-- *** 内置Web容器 Tomcat模块的websocket依赖 -->
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>

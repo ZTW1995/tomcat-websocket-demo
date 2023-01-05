@@ -8,6 +8,7 @@ import org.apache.catalina.LifecycleException;
 import org.apache.catalina.connector.Connector;
 import org.apache.catalina.startup.Tomcat;
 import org.apache.tomcat.websocket.server.WsSci;
+import org.apache.tomcat.websocket.server.WsServerContainer;
 
 import javax.servlet.ServletException;
 import javax.websocket.DeploymentException;
@@ -45,7 +46,8 @@ public class App {
         Context ctx = tomcat.addContext(contextPath, null);
         // true时：相关 classes 或 jar 修改时，会重新加载资源，不过资源消耗很大
         ctx.setReloadable(false);
-
+        ctx.setParentClassLoader(App.class.getClassLoader());
+        
         Set<Class<?>> wsClasses = new HashSet<>();
         wsClasses.add(WsChatEndPoint.class);
         wsClasses.add(WsChatEndPointConfig.class);
