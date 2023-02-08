@@ -29,7 +29,7 @@ public class App {
 
     private static final String baseDir = "D:\\tmp-tomcat";
 
-    private static final String contextPath = "/web";
+    private static final String contextPath = "";
 
     private static final int port = 8888;
 

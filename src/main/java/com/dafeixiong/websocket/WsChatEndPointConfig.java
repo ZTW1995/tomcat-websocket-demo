@@ -20,9 +20,9 @@ public class WsChatEndPointConfig implements ServerApplicationConfig {
     @Override
     public Set<ServerEndpointConfig> getEndpointConfigs(Set<Class<? extends Endpoint>> scanned) {
         Set<ServerEndpointConfig> result = new HashSet<>();
-        if (scanned.contains(WsChatEndPoint.class)) {
-            result.add(ServerEndpointConfig.Builder.create(WsChatEndPoint.class, "/bear").build());
-        }
+//        if (scanned.contains(WsChatEndPoint.class)) {
+//            result.add(ServerEndpointConfig.Builder.create(WsChatEndPoint.class, "/bear").build());
+//        }
         return result;
     }
 
@@ -30,7 +30,7 @@ public class WsChatEndPointConfig implements ServerApplicationConfig {
     public Set<Class<?>> getAnnotatedEndpointClasses(Set<Class<?>> scanned) {
         Set<Class<?>> results = new HashSet<>();
         for (Class<?> clazz : scanned) {
-            if (clazz.getPackage().getName().contains("ws")) {
+            if (clazz.getName().contains("WsChatEndPoint")) {
                 results.add(clazz);
             }
         }
