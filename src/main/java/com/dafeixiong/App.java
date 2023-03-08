@@ -1,6 +1,7 @@
 package com.dafeixiong;
 
 import com.dafeixiong.servlet.TestServlet;
+import com.dafeixiong.websocket.WebSocketServer;
 import com.dafeixiong.websocket.WsChatEndPointConfig;
 import com.dafeixiong.websocket.WsChatEndPoint;
 import org.apache.catalina.Context;
@@ -12,7 +13,10 @@ import org.apache.tomcat.websocket.server.WsServerContainer;
 
 import javax.servlet.ServletException;
 import javax.websocket.DeploymentException;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.UnknownHostException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,6 +45,8 @@ public class App {
         Connector con = new Connector("HTTP/1.1");
         // 设置服务端的监听端口
         con.setPort(port);
+        con.setProperty("relaxedPathChars", "\"<>[\\]^`{|}");
+        con.setProperty("relaxedQueryChars", "\"<>[\\]^`{|}");
         tomcat.getService().addConnector(con);
         // 获取tomcat上下文
         Context ctx = tomcat.addContext(contextPath, null);
@@ -50,7 +56,7 @@ public class App {
         
         Set<Class<?>> wsClasses = new HashSet<>();
         wsClasses.add(WsChatEndPoint.class);
-        wsClasses.add(WsChatEndPointConfig.class);
+//        wsClasses.add(WsChatEndPointConfig.class);
         // 添加WsSci初始化器（开启websocket功能）
         ctx.addServletContainerInitializer(new WsSci(), wsClasses);
         // 添加servlet
@@ -58,6 +64,9 @@ public class App {
         ctx.addServletMappingDecoded("/test", "test");
 
 //        WsServerContainer wsc = (WsServerContainer)ctx.getServletContext().getAttribute("javax.websocket.server.ServerContainer");
+
+        WebSocketThread thread = new WebSocketThread();
+        thread.start();
 
         tomcat.init();
         // 启动tomcat
